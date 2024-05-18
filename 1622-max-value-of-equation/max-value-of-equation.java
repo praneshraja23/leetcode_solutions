@@ -20,8 +20,6 @@ class Solution {
              flag=j-1;
              }
         }
-        // if(max<sum)
-        //   max=sum;
         }return max;
     }
 }
