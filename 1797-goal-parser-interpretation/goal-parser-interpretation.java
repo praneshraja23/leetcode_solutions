@@ -1,7 +1,8 @@
 class Solution {
     public String interpret(String command) {
       String a="";
-      for(int i=0;i<command.length();i++){
+      int i=0;
+      while(i<command.length()){
         if(command.charAt(i)=='G'){
             a+="G";
         }
@@ -13,7 +14,7 @@ class Solution {
             a+="al";
             i+=3;
         }
-           
+          i++; 
       }
       return a;  
     }
