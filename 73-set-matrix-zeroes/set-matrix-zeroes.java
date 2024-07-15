@@ -14,8 +14,8 @@ class Solution {
             for(int j=0;j<cols;j++){
                if(matrix[i][j]==0){
                 if(arr[i][j]==true){
-                     setZeroRow(matrix,i,cols,j,arr);
-                     setZeroCol(matrix,rows,j,i,arr);
+                     setZeroRow(matrix,i,cols);
+                     setZeroCol(matrix,rows,j);
 
                 }
               }
@@ -23,14 +23,14 @@ class Solution {
         }
     }       
          
-    public void setZeroRow(int[][] matrix,int row,int cols,int col,boolean[][] arr){
+    public void setZeroRow(int[][] matrix,int row,int cols){
         int rows=matrix.length;
         for(int i=0;i<cols;i++){
             if(matrix[row][i]!=0)
              matrix[row][i]=0;
         }
     }
-     public void setZeroCol(int[][] matrix,int rows,int col,int row,boolean[][] arr){
+     public void setZeroCol(int[][] matrix,int rows,int col){
         int cols=matrix[0].length;
         for(int i=0;i<rows;i++){
             if(matrix[i][col]!=0)
