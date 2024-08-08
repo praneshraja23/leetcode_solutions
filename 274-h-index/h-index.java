@@ -1,4 +1,6 @@
 class Solution {
+    //h-index means that first sort array from high to low
+    //then chech arr[index]>=index+1.
     public int hIndex(int[] citations) {
         int len=citations.length;
         int count=0;
