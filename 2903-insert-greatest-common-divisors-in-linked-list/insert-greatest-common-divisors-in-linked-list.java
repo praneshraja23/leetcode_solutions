@@ -20,16 +20,7 @@ class Solution {
         {
             int val1=ptr1.val;
             int val2=ptr2.val;
-            int div=0;
-            if(val1<=val2)
-            {
-                div=val1;
-            }
-            else
-            {
-                div=val2;
-            }
-            div=find(val1,val2,div);
+            int div=find(val1,val2);
             ListNode node=new ListNode(div);
             node.next=ptr1;
             ptr2.next=node;
@@ -38,16 +29,20 @@ class Solution {
         }
         return head;
     }
-    public int find(int f,int s,int div)
+    public int find(int f,int s)
     {
-        while(div>0)
+        while(f>0 && s>0)
         {
-            if(f%div==0 && s%div==0)
+            if(f>=s)
             {
-                return div;
+                f=f%s;
             }
-            div--;
+            else
+            {
+                s=s%f;
+            }
         }
-        return div;
+        if(s==0) return f;
+        return s;
     }
 }
