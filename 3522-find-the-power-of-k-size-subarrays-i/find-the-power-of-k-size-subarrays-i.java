@@ -11,6 +11,7 @@ class Solution {
                 if(nums[i-1]+1!=nums[i])
                 {
                     c=0;
+                    break;
                 }
             }
             if(c==1)
