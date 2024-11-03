@@ -27,42 +27,37 @@ class Solution {
         {
             int size=queue.size();
             List<Integer> list=new ArrayList<>();
-            if(rev)
-            {
-                 for(int i=0;i<size;i++)
+             for(int i=0;i<size;i++)
                 {
-                    TreeNode currentNode=queue.pollLast();
-                    list.add(currentNode.val);
-                     
-                    if(currentNode.right!=null)
+                    if(rev)
                     {
-                        queue.addFirst(currentNode.right);
+                        TreeNode currentNode=queue.pollLast();
+                        list.add(currentNode.val);
+                        
+                        if(currentNode.right!=null)
+                        {
+                            queue.addFirst(currentNode.right);
+                        }
+                        if(currentNode.left!=null)
+                        {
+                            queue.addFirst(currentNode.left);
+                        }
                     }
-                    if(currentNode.left!=null)
+                    else
                     {
-                        queue.addFirst(currentNode.left);
+
+                        TreeNode currentNode=queue.pollFirst();
+                        list.add(currentNode.val);
+                        if(currentNode.left!=null)
+                        {
+                            queue.addLast(currentNode.left);
+                        }
+                        if(currentNode.right!=null)
+                        {
+                            queue.addLast(currentNode.right);
+                        }
                     }
-                   
-                    
                 }
-            }
-            else
-            {
-                for(int i=0;i<size;i++)
-                {
-                    TreeNode currentNode=queue.pollFirst();
-                    list.add(currentNode.val);
-                    if(currentNode.left!=null)
-                    {
-                        queue.addLast(currentNode.left);
-                    }
-                    if(currentNode.right!=null)
-                    {
-                        queue.addLast(currentNode.right);
-                    }
-                    
-                }
-            }
             rev=!rev;
             lists.add(list);
         }
