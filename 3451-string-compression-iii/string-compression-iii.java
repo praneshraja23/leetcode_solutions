@@ -2,19 +2,25 @@ class Solution {
     public String compressedString(String word) {
         StringBuilder comp=new StringBuilder();
         char pre=word.charAt(0);
-        int count=0;
-        for(int i=0;i<word.length();i++)
+        int count=0,len=word.length();
+        for(int i=0;i<len;)
         {
             char ch=word.charAt(i);
-            if(pre!=ch || count==9)
+            while(pre==ch && count<9)
             {   
-                comp.append(""+count+""+pre);
-                pre=ch;
-                count=0;
+                count++;
+                i++;
+                if(i<len)
+                ch=word.charAt(i);
+                else
+                break;
             }
-            count++;
+            comp.append(""+count+""+pre);
+            pre=ch;
+            count=0;
+            
         }
-        comp.append(""+count+""+pre);
+        
         
         return comp.toString();
     }
