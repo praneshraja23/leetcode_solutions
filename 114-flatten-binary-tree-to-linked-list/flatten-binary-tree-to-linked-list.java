@@ -15,36 +15,26 @@
  */
 class Solution {
     public void flatten(TreeNode root) {
-        if(root==null || (root.left==null && root.right==null))
-          return;
-        Deque<TreeNode> queue=new LinkedList<>();
-        if(root.left!=null)
+        if(root==null)
         {
-            queue.add(root.left);
+            return;
         }
-        if(root.right!=null)
+        TreeNode current=root;
+        while(current!=null)
         {
-           queue.add(root.right);
-        }
-        TreeNode node=root;
-        while(!queue.isEmpty())
-        {
-            int size=queue.size();
-            for(int i=0;i<size;i++)
+            while(current.left!=null)
             {
-                TreeNode currentNode=queue.poll();
-                if(currentNode.right!=null)
+                TreeNode temp=current.left;
+                while(temp.right!=null)
                 {
-                    queue.addFirst(currentNode.right);
+                    temp=temp.right;
                 }
-                if(currentNode.left!=null)
-                {
-                    queue.addFirst(currentNode.left);
-                }
-                node.right=currentNode;
-                node.left=null;
-                node=node.right;
+                temp.right=current.right;
+                current.right=current.left;
+                current.left=null;
             }
+            current=current.right;
         }
+        
     }
 }
