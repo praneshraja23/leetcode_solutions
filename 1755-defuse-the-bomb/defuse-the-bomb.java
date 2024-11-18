@@ -6,34 +6,23 @@ class Solution {
         {
             return result;
         }
-        int i=0;
-        while(i<len)
-        {   
-            if(k>0)
-            {
-                int loop=k,sum=0;
-                for(int s=i+1;loop>0;s++)
-                {
-                    sum+=code[s%len];
-                    loop--;
-                }
-                result[i]=sum;
-            }
-            else
-            {
-                int loop=k,sum=0;
-                for(int s=i-1;loop<0;s--)
-                {   
-                    if(s<0)
-                    {
-                        s=len-1;
-                    }
-                    sum+=code[s%len];
-                    loop++;
-                }
-                result[i]=sum;
-            }
-            i++;
+        int start=1,end=start+k-1,sum=0;
+        if(k<0)
+        {
+            start=len+k;
+            end=len-1;
+        }
+        for(int i=start;i<=end;i++)
+        {
+            sum+=code[i%len];
+        }
+        for(int i=0;i<len;i++)
+        {
+            result[i]=sum;
+            sum-=code[start%len];
+            sum+=code[(end+1)%len];
+            start++;
+            end++;
         }
         return result;
     }
