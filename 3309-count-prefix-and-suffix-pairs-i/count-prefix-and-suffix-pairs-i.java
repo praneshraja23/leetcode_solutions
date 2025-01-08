@@ -16,15 +16,6 @@ class Solution {
     }
     public boolean isPrefixAndSuffix (String str1,String str2)
     {
-        int len1=str1.length();
-        int len2=str2.length();
-        if(len1<=len2)
-        {
-            boolean prefix=(str1.equals(str2.substring(0,len1)));
-            boolean suffix=(str1.equals(str2.substring(len2-len1,len2)));
-            if(prefix && suffix)
-                return true;
-        }
-        return false;
+        return str2.startsWith(str1) && str2.endsWith(str1);
     }
 }
