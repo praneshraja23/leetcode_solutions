@@ -1,26 +1,23 @@
 class Solution {
     public int xorAllNums(int[] nums1, int[] nums2) {
-        int ans=0;
+        int xor1=0,xor2=0;
         int len1=nums1.length;
         int len2=nums2.length;
-        Map<Integer,Integer> map=new HashMap<>();
-        for(int i=0;i<len1;i++)
+        if(len2%2!=0)
         {
-            int k=0;
-            int val=nums1[i];
-            if(map.containsKey(val))
+            for(int i:nums1)
             {
-                ans=ans^map.get(val);
-                continue;
+                xor1^=i;
             }
-            for(int j=0;j<len2;j++)
-            {
-                int t=val^nums2[j];
-                k=k^t;
-            }
-            map.put(val,k);
-            ans=ans^k;
         }
-        return ans;
+        if(len1%2!=0)
+        {
+            for(int i:nums2)
+            {
+                xor2^=i;
+            }
+        }
+        
+        return xor1^xor2;
     }
 }
