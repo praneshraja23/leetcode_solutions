@@ -8,7 +8,9 @@ class Solution {
             if(b.substring(c,c+len2).equals(part))
             {
                 b.delete(c,c+len2);
-                c=0;
+                c-=len2;
+                if(c<0)
+                  c=0;
             }
             else
             {
