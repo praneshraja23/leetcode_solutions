@@ -9,21 +9,13 @@ class Solution {
             {
                 n-=(Math.pow(3,pow++));
             }
-            if(list.contains(n*(-1)) )
-            {
-                return false;
-            }
-            else if(n!=0) list.add(n*(-1));
-            pow=0;
-            while(n<0)
-            {
-                n+=(Math.pow(3,pow++));
-            }
-            if(list.contains(n))
+            n=n*(-1);
+            if(list.contains(n) )
             {
                 return false;
             }
             else if(n!=0) list.add(n);
+           
         }
         return true;
     }
