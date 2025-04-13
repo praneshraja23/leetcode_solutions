@@ -1,48 +1,87 @@
 class Solution {
     public List<List<String>> solveNQueens(int n) {
-        List<List<String>> ans=new ArrayList<>();
-        int[] leftRows=new int[n];
-        int[] updiagonal=new int[2*n-1];
-        int[] lowerdiagonal=new int[2*n-1];
-        char[][] board=new char[n][n];
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
-                board[i][j] = '.';
-        solve(0,ans,board,leftRows,updiagonal,lowerdiagonal,n);
-        return ans;
-    }
-    public void solve(int col,List<List<String>> ans,char[][] board,int[] leftRow,int[] upperdiagonal,int[] lowerdiagonal,int n)
-    {
-        if(col==n)
-        {
-            ans.add(change(board,n));
-            return;
-        }
+        char[][] arr=new char[n][n];
         for(int i=0;i<n;i++)
         {
-            if(leftRow[i]==0 && upperdiagonal[n-1+col-i]==0 && lowerdiagonal[i+col]==0)
+            for(int j=0;j<n;j++)
             {
-                board[i][col]='Q';
-                leftRow[i]=1;
-                upperdiagonal[n-1+col-i]=1;
-                lowerdiagonal[i+col]=1;
-                solve(col+1,ans,board,leftRow,upperdiagonal,lowerdiagonal,n);
-                board[i][col]='.';
-                leftRow[i]=0;
-                upperdiagonal[n-1+col-i]=0;
-                lowerdiagonal[i+col]=0;
-
+                arr[i][j]='.';
             }
         }
+        List<List<String>> ans=new ArrayList<>();
+        helper(0,arr,n,ans);
+        return ans;
     }
-    public List<String> change(char[][] board,int n)
+
+    public void helper(int col,char[][] arr,int n,List<List<String>> ans)
     {
-        List<String> s=new ArrayList<>();
-        for(int i=0;i<n;i++)
-        {
-            String str=new String(board[i]);
-            s.add(str);
+        if(col==n)
+        { 
+            List<String> list=new ArrayList<>();
+            for(int i=0;i<n;i++)
+            {
+                String st="";
+                for(int j=0;j<n;j++)
+                {
+                    st+=arr[i][j];
+                }
+                list.add(st);
+            }
+            ans.add(list);
+            return;
         }
-        return s;
+        
+        for(int row=0;row<n;row++)
+        {
+            if(istrue(row,col,arr,n))
+            {
+                arr[row][col]='Q';
+                helper(col+1,arr,n,ans);
+                arr[row][col]='.';
+            }
+            
+        }
+
+    }
+
+    public boolean istrue(int row,int col,char[][] arr,int n)
+    {
+        for(int i=col;i>=0;i--)
+        {
+            if(arr[row][i]=='Q')
+            {
+                return false;
+            }
+        }
+
+        for(int i=row;i>=0;i--)
+        {
+            if(arr[i][col]=='Q')
+            {
+                return false;
+            }
+        }
+        int c=col;
+        int r=row;
+        while(row>-1 && col>-1)
+        {
+            if(arr[row][col]=='Q')
+            {
+                return false;
+            }
+            row--;
+            col--;
+        }
+        while(r<n && c>-1)
+        {
+            if( arr[r][c]=='Q')
+            {
+                return false;
+            }
+            r++;
+            c--;
+        }
+
+       return true;
     }
 }
