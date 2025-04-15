@@ -1,43 +1,71 @@
 class Solution {
     public void solveSudoku(char[][] board) {
-        solver(board);
+        helper(0,0,board);
+        return ;
     }
-    public boolean solver(char[][] board)
+    public boolean helper(int row, int col, char[][] board)
     {
-        for(int i=0;i<9;i++)
-        {
-            for(int j=0;j<9;j++)
+            row=(col==9)?row+1:row;
+            col=(col==9)?0:col;
+            if(row==board.length)
             {
-                if(board[i][j]=='.')
+                return true;
+            }
+
+            if(board[row][col]=='.')
+            {
+                for(char val='1';val<='9';val=(char)(val+1))
                 {
-                    for(char c='1';c<='9';c++)
+                    if(!isValid(val,board,row,col))
                     {
-                        if(isValid(board,i,j,c))
-                        {
-                            board[i][j]=c;
-                            if(solver(board))
-                            {
-                                return true;
-                            }
-                            else
-                            {
-                                board[i][j]='.';
-                            }
-                        }
+                        continue;
                     }
-                    return false;
+                    board[row][col]=val;
+                    if(helper(row,col+1,board))
+                    {
+                        return true;
+                    }
+                    board[row][col]='.';
                 }
             }
-        }
-        return true;
+            else
+            {
+                if(helper(row,col+1,board))
+                {
+                    return true;
+                }
+            }
+        return false;
     }
-    public boolean isValid(char[][] board,int row,int col,char ch)
+    public boolean isValid(char val,char[][] board,int row,int col)
     {
-        for(int i=0;i<9;i++)
+        for(int i=0;i<=8;i++)
         {
-            if(board[row][i]==ch || board[i][col]==ch || board[3*(row/3)+(i/3)][3*(col/3)+(i%3)]==ch)
+            if(board[row][i]==val)
             {
                 return false;
+            }
+        }
+
+        for(int i=0;i<=8;i++)
+        {
+            if(board[i][col]==val)
+            {
+                return false;
+            }
+        }
+
+        int srow=row-(row%3);
+        int scol=col-(col%3);
+        for(int i=0;i<3;i++)
+        {
+            for(int j=0;j<3;j++)
+            {
+                char ch=board[srow+i][scol+j];
+                if(ch==val)
+                {
+                    return false;
+                }
             }
         }
         return true;
